@@ -1,0 +1,5 @@
+python-telegram-bot
+lxml
+requests
+pytz
+selenium
