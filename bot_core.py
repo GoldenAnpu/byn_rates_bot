@@ -8,7 +8,7 @@ from telegram.ext.filters import Filters
 import os
 
 PORT = int(os.environ.get('PORT', 8443))
-TOKEN = ""  # telegram token
+TOKEN = os.environ['T_TOKEN']  # telegram token stored in Heroku app variables
 
 updater = Updater(TOKEN, use_context=True)
 
