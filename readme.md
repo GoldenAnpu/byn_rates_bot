@@ -8,7 +8,7 @@
 Bot helps you get official exchange rates for currencies from National Bank of the Republic of Belarus.
 All information provided here is not the direct one from NBRB. The author is not responsible for financial problems that may arise with currency exchange due to mishandling this information.
 
-<a href="https://t.me/BY_Rates_bot"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/240px-Telegram_logo.svg.png" height="16" alt="Telegram"> Try it here</a>
+<a href="https://t.me/BY_Rates_bot"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/240px-Telegram_logo.svg.png" height="16" alt="Telegram"> Try it here</a> - <a style="background-color:Tomato; color:white"> currently unavailable due to expired service subscription </a>
 
 ### It works from the cloud
 Salesforce Cloud Platform - <a href="https://heroku.com/"> heroku.com</a>
