@@ -117,4 +117,4 @@ updater.dispatcher.add_handler(MessageHandler(Filters.text, unknown_text))
 updater.start_webhook(listen="0.0.0.0",
                       port=int(PORT),
                       url_path=TOKEN,
-                      webhook_url='https://byrates.herokuapp.com/' + TOKEN)
+                      webhook_url='https://byn-rates-bot.vercel.app/' + TOKEN)
