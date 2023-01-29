@@ -1,15 +1,16 @@
+import logging
 from scraper import collect_rates_and_dates, gather_page_into_local_html, get_today_date
-from telegram.ext.updater import Updater
-from telegram.update import Update
-from telegram.ext.commandhandler import CommandHandler
-from telegram.ext.messagehandler import MessageHandler
-from telegram.ext.callbackcontext import CallbackContext
-from telegram.ext.filters import Filters
+from telegram import Update
+from telegram.ext import Application, CommandHandler, MessageHandler, CallbackContext, filters
 import os
 
 PORT = int(os.environ.get('PORT', 443))
-TOKEN = os.environ['T_TOKEN']  # telegram token stored in Heroku app variables
-updater = Updater(TOKEN, use_context=True)
+TOKEN = os.environ['B_TOKEN']  # telegram token stored in env variables
+application = Application.builder().token(TOKEN).build()
+
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
+)
 
 
 def get_currency_name(currency):
@@ -77,40 +78,39 @@ def get_message_depending_rates(currency):
 
 # Commands
 
-def help(update: Update, context: CallbackContext):
-    update.message.reply_text("Can't help you now 🥲")
+async def bot_help(update: Update, context: CallbackContext):
+    await update.message.reply_text("Can't help you now 🥲")
 
 
-def get_usd(update: Update, context: CallbackContext):
-    update.message.reply_text(get_message_depending_rates('usd'), parse_mode='Markdown')
+async def get_usd(update: Update, context: CallbackContext):
+    await update.message.reply_text(get_message_depending_rates('usd'), parse_mode='Markdown')
 
 
-def get_eur(update: Update, context: CallbackContext):
-    update.message.reply_text(get_message_depending_rates('eur'), parse_mode='Markdown')
+async def get_eur(update: Update, context: CallbackContext):
+    await update.message.reply_text(get_message_depending_rates('eur'), parse_mode='Markdown')
 
 
-def start(update: Update, context: CallbackContext):
+async def start(update: Update, context: CallbackContext):
     name = update.message.from_user.first_name
-    update.message.reply_text(f"Welcome, *{name}*!\nIf you wanna get actual information about currency rates "
-                              "just go to the menu!\nOr use commands /get_usd and /get_eur instead!\n"
-                              "Have a nice day!", parse_mode='Markdown')
+    await update.message.reply_text(f"Welcome, *{name}*!\nIf you wanna get actual information about currency rates "
+                                    "just go to the menu!\nOr use commands /get_usd and /get_eur instead!\n"
+                                    "Have a nice day!", parse_mode='Markdown')
 
 
-def unknown(update: Update, context: CallbackContext):
-    update.message.reply_text(
+async def unknown(update: Update, context: CallbackContext):
+    await update.message.reply_text(
         "Sorry '%s' is not a valid command" % update.message.text)
 
 
-def unknown_text(update: Update, context: CallbackContext):
-    update.message.reply_text(
+async def unknown_text(update: Update, context: CallbackContext):
+    await update.message.reply_text(
         "*Sorrybro*\nI can't understand you, don't send '%s' again" % update.message.text, parse_mode='Markdown')
 
 
-updater.dispatcher.add_handler(CommandHandler('get_usd', get_usd))
-updater.dispatcher.add_handler(CommandHandler('get_eur', get_eur))
-updater.dispatcher.add_handler(CommandHandler('start', start))
-updater.dispatcher.add_handler(CommandHandler('help', help))
-updater.dispatcher.add_handler(MessageHandler(Filters.command, unknown))
-updater.dispatcher.add_handler(MessageHandler(Filters.text, unknown_text))
-
-updater.start_polling()
+application.add_handler(CommandHandler('get_usd', get_usd))
+application.add_handler(CommandHandler('get_eur', get_eur))
+application.add_handler(CommandHandler('start', start))
+application.add_handler(CommandHandler('help', bot_help))
+application.add_handler(MessageHandler(filters.COMMAND, unknown))
+application.add_handler(MessageHandler(filters.TEXT, unknown_text))
+application.run_polling()
