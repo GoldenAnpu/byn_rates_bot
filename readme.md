@@ -5,18 +5,16 @@
 
 ### This is an unofficial bot❗
 
-Bot helps you get official exchange rates for currencies from National Bank of the Republic of Belarus.
-All information provided here is not the direct one from NBRB. The author is not responsible for financial problems that may arise with currency exchange due to mishandling this information.
+Bot provides official exchange rates for currencies from National Bank of the Republic of Belarus. The information provided here is not directly from NBRB. The author cannot be held responsible for any financial problems that may result from improper use of the information.
 
-<a href="https://t.me/BY_Rates_bot"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/240px-Telegram_logo.svg.png" height="16" alt="Telegram"> Try it here</a> - <a style="background-color:Tomato; color:white"> currently unavailable due to expired service subscription </a>
-
-### It works from the cloud
-Salesforce Cloud Platform - <a href="https://heroku.com/"> heroku.com</a>
+<a href="https://t.me/BY_Rates_bot"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/240px-Telegram_logo.svg.png" height="16" alt="Telegram"> Try it here</a>
 
 ### How it works
-Information gathers from site that can be reached outside Belarus, cuz cloud service works from EU.
-This process happens once between time when rates change to decrease requests to site and do not exceed the limit of free Heroku subscription.
-Anyway we don't need to bother about refreshing this information more the once in a period due to rates update frequency.
+The service operates within the EU, so it is not possible to obtain information directly from the official site as all requests are blocked. Therefore, information is gathered from a site that can be accessed, which in turn retrieves the data directly from the NBRB site. The information is collected once between rate changes during the first request of the period. There is no need to constantly retrieve fresh data as the exchange rate changes occur at a specific time. Additionally, it makes sense to reduce the number of requests to the site to avoid losing access.
 
 ### For whom it needs
-For people who have some financial affairs in Belarus beside its border and who don't need anything else except info about exchange rates.
+For people who are outside Belarus but have financial dealings within the country and only need information about exchange rates.
+
+### Technical information
+ - Developed using python-telegram-bot
+ - Deployed on VPS Linode with Ubuntu 22.10
