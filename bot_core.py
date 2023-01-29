@@ -7,9 +7,8 @@ from telegram.ext.callbackcontext import CallbackContext
 from telegram.ext.filters import Filters
 import os
 
-PORT = int(os.environ.get('PORT', 8443))
+PORT = int(os.environ.get('PORT', 443))
 TOKEN = os.environ['T_TOKEN']  # telegram token stored in Heroku app variables
-
 updater = Updater(TOKEN, use_context=True)
 
 
@@ -114,7 +113,4 @@ updater.dispatcher.add_handler(CommandHandler('help', help))
 updater.dispatcher.add_handler(MessageHandler(Filters.command, unknown))
 updater.dispatcher.add_handler(MessageHandler(Filters.text, unknown_text))
 
-updater.start_webhook(listen="0.0.0.0",
-                      port=int(PORT),
-                      url_path=TOKEN,
-                      webhook_url='https://byn-rates-bot.vercel.app/' + TOKEN)
+updater.start_polling()
